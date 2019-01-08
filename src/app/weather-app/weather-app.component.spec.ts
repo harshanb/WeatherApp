@@ -73,6 +73,13 @@ describe('WeatherAppComponent', () => {
     expect(app.cTemp).toBeDefined();
 
   }));
+  it('should call the getDetails function',async(() =>{
+    spyOn(component,'getDetails')
+    el=fixture.debugElement.query(By.css('button')).nativeElement;
+    el.click();
+    expect(component.getDetails).toHaveBeenCalled();
+
+  }));
   
 
 });

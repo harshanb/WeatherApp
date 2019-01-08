@@ -19,4 +19,8 @@ export class WeatherAppComponent implements OnInit {
   ngOnInit() {
   }
 
+  getDetails()
+  {
+    
+  }
 }
