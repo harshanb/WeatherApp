@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WeatherAppComponent } from './weather-app/weather-app.component';
 import { DisplaydetailsComponent } from './displaydetails/displaydetails.component';
+import { OpenweatherapiService } from './services/openweatherapi.service';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { DisplaydetailsComponent } from './displaydetails/displaydetails.compone
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [OpenweatherapiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
