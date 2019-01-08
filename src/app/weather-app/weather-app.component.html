@@ -1,5 +1,5 @@
-<input #latitude placeholder="Enter the latitude" />
-  <input #longitude placeholder="Enter the longitude" />
+<input #latitude type="number" min="0" step="any" placeholder="Enter the latitude" />
+  <input #longitude type="number" min="0" step="any" placeholder="Enter the longitude" />
   <br>
   <br>
   <button (click)="getDetails(latitude.value,longitude.value)">Get Weather</button>

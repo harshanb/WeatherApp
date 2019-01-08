@@ -1,11 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WeatherAppComponent } from './weather-app/weather-app.component';
-import { DisplaydetailsComponent } from './displaydetails/displaydetails.component';
+
 import { OpenweatherapiService } from './services/openweatherapi.service';
+import {DataService} from './services/data.service';
+import { DisplaydetailsComponent } from './displaydetails/displaydetails.component';
+
 
 @NgModule({
   declarations: [
@@ -13,11 +16,15 @@ import { OpenweatherapiService } from './services/openweatherapi.service';
     WeatherAppComponent,
     DisplaydetailsComponent
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [OpenweatherapiService],
+  providers: [OpenweatherapiService,DataService]
+,
   bootstrap: [AppComponent]
+  
 })
 export class AppModule { }
