@@ -6,6 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./weather-app.component.css']
 })
 export class WeatherAppComponent implements OnInit {
+  httpdata;
+  description = '';
+  speed = '';
+  name = '';
+  temp = '';
+  fTemp = '';
+  cTemp = '';
 
   constructor() { }
 

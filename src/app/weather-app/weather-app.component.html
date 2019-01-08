@@ -1,3 +1,6 @@
-<p>
-  weather-app works!
-</p>
+<input #latitude placeholder="Enter the latitude" />
+  <input #longitude placeholder="Enter the longitude" />
+  <br>
+  <br>
+  <button (click)="getDetails(latitude.value,longitude.value)">Get Weather</button>
+  <app-displaydetails></app-displaydetails>
