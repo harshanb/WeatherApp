@@ -80,6 +80,42 @@ describe('WeatherAppComponent', () => {
     expect(component.getDetails).toHaveBeenCalled();
 
   }));
+  it('should define "getDetails" function',async(() =>{
+    spyOn(component,'getDetails').and.callThrough();
+    component.getDetails(0,0);
+    expect(component.getDetails).toHaveBeenCalled();
+    
+
+  }));
+  
+  it('The OpenWeatherApi service needs to be mocked',async(() =>{
+    inject([OpenweatherapiService], (service: OpenweatherapiService) => {
+        var expected = [
+            {
+              "coord":{"lon":12,"lat":10},"weather":[{"id":800,"main":"Clear","description":"clear sky","icon":"01d"}],"base":"stations","main":{"temp":296.99,"pressure":982.55,"humidity":26,"temp_min":296.99,"temp_max":296.99,"sea_level":1028.57,"grnd_level":982.55},"wind":{"speed":5.05,"deg":44.0063},"clouds":{"all":0},"dt":1546855844,"sys":{"message":0.0038,"country":"NG","sunrise":1546839071,"sunset":1546880731},"id":2323344,"name":"Shani","cod":200
+            }
+        ];
+
+        const spy = spyOn(service, 'getConfig').and.returnValue(Promise.resolve(expected));            
+
+        
+        component.getDetails(10,12);
+
+        fixture.detectChanges();
+
+        
+        fixture.whenStable().then(() => {
+          expect(component.description).toBeDefined();
+          expect(component.speed).toBeDefined();
+          expect(component.name).toBeDefined();
+          expect(component.temp).toBeDefined();
+          expect(component.fTemp).toBeDefined();
+          expect(component.cTemp).toBeDefined();
+       
+            });
+        
+    })
+  }));
   
 
 });
