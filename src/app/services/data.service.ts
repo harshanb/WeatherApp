@@ -1,53 +1,50 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-
 @Injectable()
 export class DataService {
-  constructor() {}
-  private description = new BehaviorSubject('NA');
-  descId = this.description.asObservable();
-  private speed = new BehaviorSubject('NA');
-  speedId = this.speed.asObservable();
-  private name = new BehaviorSubject('NA');
-  nameId = this.name.asObservable();
-  private fTemp = new BehaviorSubject('NA');
-  ftempId = this.fTemp.asObservable();
-  private cTemp = new BehaviorSubject('NA');
-  ctempId = this.cTemp.asObservable();
+	constructor() {}
+	private weatherDescription = new BehaviorSubject('NA');
+	descId = this.weatherDescription.asObservable();
+	private windSpeed = new BehaviorSubject('NA');
+	speedId = this.windSpeed.asObservable();
+	private location = new BehaviorSubject('NA');
+	locationId = this.location.asObservable();
+	private tempInFht = new BehaviorSubject('NA');
+	tempFhtId = this.tempInFht.asObservable();
+	private tempInCels = new BehaviorSubject('NA');
+	tempCelsId = this.tempInCels.asObservable();
 
-  changeDesc(desc: string) {
-       this.description.next(desc)
-  }
-  getDesc(){
-      return this.descId;
-  }
+	changeDesc(desc: string) {
+		this.weatherDescription.next(desc);
+	}
+	getDesc() {
+		return this.descId;
+	}
 
-  changeSpeed(sp: string) {
-    this.speed.next(sp)
-  }
-  getSpeed(){
-    return this.speedId;
-  }
+	changeSpeed(sp: string) {
+		this.windSpeed.next(sp);
+	}
+	getSpeed() {
+		return this.speedId;
+	}
 
-  changeName(name: string) {
-    this.name.next(name)
-  }
-  getName(){
-    return this.nameId;
-  }
-  changeFtemp(ftemp: string) {
-    this.fTemp.next(ftemp)
-  }
-  getFtemp(){
-    return this.ftempId;
-  }
-  changeCtemp(ctemp: string) {
-    this.cTemp.next(ctemp)
-  }
-  getCtemp(){
-    return this.ctempId;
-  }
-  
-  
+	changeLocation(name: string) {
+		this.location.next(name);
+	}
+	getLocation() {
+		return this.locationId;
+	}
+	changeTempInFht(ftemp: string) {
+		this.tempInFht.next(ftemp);
+	}
+	getTempInFht() {
+		return this.tempFhtId;
+	}
+	changeTempInCels(ctemp: string) {
+		this.tempInCels.next(ctemp);
+	}
+	getTempInCels() {
+		return this.tempCelsId;
+	}
 }

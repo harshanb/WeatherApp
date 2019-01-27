@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { WeatherAppComponent } from './weather-app/weather-app.component';
 
 import { OpenweatherapiService } from './services/openweatherapi.service';
-import {DataService} from './services/data.service';
+import { DataService } from './services/data.service';
 import { DisplaydetailsComponent } from './displaydetails/displaydetails.component';
 
 
@@ -20,11 +20,11 @@ import { DisplaydetailsComponent } from './displaydetails/displaydetails.compone
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [OpenweatherapiService,DataService]
-,
+  providers: [OpenweatherapiService, DataService]
+  ,
   bootstrap: [AppComponent]
-  
+
 })
 export class AppModule { }

@@ -1,34 +1,47 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import {DataService} from '../services/data.service';
+import { DataService } from '../services/data.service';
 
 @Component({
-  selector: 'app-displaydetails',
-  templateUrl: './displaydetails.component.html',
-  styleUrls: ['./displaydetails.component.css'],
-  
+	selector: 'app-displaydetails',
+	templateUrl: './displaydetails.component.html',
+	styleUrls: ['./displaydetails.component.css'],
 })
 export class DisplaydetailsComponent implements OnDestroy {
-  subscription:Subscription;
-  description;
-  speed;
-  name;
-  fTemp;
-  cTemp;
+	subscription: Subscription;
+	weatherDescription;
+	windSpeed;
+	location;
+	tempInFht;
+	tempInCels;
 
-  constructor(private DataService:DataService) {
-    this.subscription=this.DataService.getDesc().subscribe(desc => { this.description=desc;});
-    this.subscription.add(this.DataService.getSpeed().subscribe(sp =>{this.speed=sp;}));
-    this.subscription.add(this.DataService.getName().subscribe(name =>{this.name=name;}));
-    this.subscription.add(this.DataService.getFtemp().subscribe(ftemp => {this.fTemp =ftemp;}));
-    this.subscription.add(this.DataService.getCtemp().subscribe(ctemp =>{this.cTemp=ctemp;}));
-    
-   }
-  
-  ngOnDestroy() 
-  {
-    this.subscription.unsubscribe();
+	constructor(private DataService: DataService) {
+		this.subscription = this.DataService.getDesc().subscribe(weatherDescription => {
+			this.weatherDescription = weatherDescription;
+		});
+		this.subscription.add(
+			this.DataService.getSpeed().subscribe(windSpeed => {
+				this.windSpeed = windSpeed;
+			})
+		);
+		this.subscription.add(
+			this.DataService.getLocation().subscribe(location => {
+				this.location = location;
+			})
+		);
+		this.subscription.add(
+			this.DataService.getTempInFht().subscribe(tempInFht => {
+				this.tempInFht = tempInFht;
+			})
+		);
+		this.subscription.add(
+			this.DataService.getTempInCels().subscribe(tempInCels => {
+				this.tempInCels = tempInCels;
+			})
+		);
+	}
 
-  }
-
+	ngOnDestroy() {
+		this.subscription.unsubscribe();
+	}
 }

@@ -1,50 +1,72 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { OpenweatherapiService } from '../services/openweatherapi.service';
-import {DataService} from '../services/data.service';
+import { DataService } from '../services/data.service';
 
 @Component({
-  selector: 'app-weather-app',
-  templateUrl: './weather-app.component.html',
-  styleUrls: ['./weather-app.component.css'],
-  providers: [OpenweatherapiService,DataService]
-
+	selector: 'app-weather-app',
+	templateUrl: './weather-app.component.html',
+	styleUrls: ['./weather-app.component.css'],
+	providers: [OpenweatherapiService, DataService],
 })
-export class WeatherAppComponent implements OnInit{
-  httpdata;
-  description = '';
-  speed = '';
-  name = '';
-  temp = '';
-  fTemp = '';
-  cTemp = '';
-  
-  
-  constructor(private _OpenweatherapiService: OpenweatherapiService,private DataService:DataService) { }
+export class WeatherAppComponent implements OnInit {
+	weatherInfo;
+	weatherDescription = '';
+	windSpeed = '';
+	location = '';
+	tempInFht = '';
+	tempInCels = '';
+	data: any;
 
-  ngOnInit() {
-    
-  }
-  //httpcall to subscribe weather details 
-  getDetails(latitude,longitude){
-     
-    this._OpenweatherapiService.getConfig(latitude,longitude).subscribe((data) =>{
-      this.httpdata= data;
-      this.description=this.httpdata.weather[0].description;
-      this.DataService.changeDesc(this.description);
+	constructor(private _OpenweatherapiService: OpenweatherapiService, private DataService: DataService) { }
 
-      this.speed=(2.237*this.httpdata.wind.speed).toFixed(1) + " mph";
-      this.DataService.changeSpeed(this.speed);
-      this.name=this.httpdata.name;
-      this.DataService.changeName(this.name);
-      this.temp=this.httpdata.main.temp;
-      this.fTemp=(this.httpdata.main.temp*(9/5)-459.67).toFixed(1)+ "  (°F)";
-      this.DataService.changeFtemp(this.fTemp);
-      this.cTemp=(this.httpdata.main.temp-273).toFixed(1) + "  (°C)";
-      this.DataService.changeCtemp(this.cTemp);
-     
-    });
-    this.ngOnInit();
-    
-  }
- 
+	ngOnInit() { }
+	//httpcall to subscribe weather details
+	getDetails(latitude, longitude) {
+		this._OpenweatherapiService.getConfig(latitude, longitude).subscribe((data: string) => {
+			this.weatherInfo = data;
+			this.getWeatherDescription(this.weatherInfo.weather[0].description);
+			this.getWindSpeed((2.237 * this.weatherInfo.wind.speed).toFixed(1) + ' mph');
+			this.getLocation(this.weatherInfo.name);
+			this.getTempInFht((this.weatherInfo.main.temp * (9 / 5) - 459.67).toFixed(1) + '  (°F)');
+			this.getTempInCels((this.weatherInfo.main.temp - 273).toFixed(1) + '  (°C)');
+
+
+		},
+			(error) => {
+				this.getWeatherDescription('An error occured with status:' + error.status + ' ' + error.statusText);
+				this.getWindSpeed('An error occured with status:' + error.status + ' ' + error.statusText);
+				this.getLocation('An error occured with status:' + error.status + ' ' + error.statusText);
+				this.getTempInFht('An error occured with status:' + error.status + ' ' + error.statusText);
+				this.getTempInCels('An error occured with status:' + error.status + ' ' + error.statusText);
+			}
+		);
+		this.ngOnInit();
+	}
+	getWeatherDescription(desc: string) {
+		this.weatherDescription = desc;
+		this.DataService.changeDesc(this.weatherDescription);
+
+	}
+	getWindSpeed(speed: string) {
+		this.windSpeed = speed;
+		this.DataService.changeSpeed(this.windSpeed);
+	}
+	getLocation(location: string) {
+		this.location = location;
+		this.DataService.changeLocation(this.location);
+	}
+	getTempInFht(tempInFht: string) {
+		this.tempInFht = tempInFht
+		this.DataService.changeTempInFht(this.tempInFht);
+	}
+	getTempInCels(tempInCels: string) {
+		this.tempInCels = tempInCels;
+		this.DataService.changeTempInCels(this.tempInCels);
+	}
+
+
+
+
+
+
 }
